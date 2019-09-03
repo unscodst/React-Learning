@@ -11,32 +11,58 @@ import Person from './Person/Person';
 class App extends Component {
   state = {
     persons: [
-      { name: 'Max', age: 28 },
-      { name: 'Matt', age: 21 },
-      { name: 'Jooje', age: 21}
-    ]
+      { id: 0, name: 'Max', age: 28 },
+      { id: 1, name: 'Matt', age: 21 },
+      { id: 2, name: 'Jooje', age: 21}
+    ],
+    showPersons: false
   }
 
-  switchNameHandler = (newName) => {
-    // console.log('Was clicked');
-    // DON'T DO THIS: this.state.persons[0].name = 'Maxamilian';
-    this.setState({
-      persons: [
-        { name: newName, age: 28 },
-        { name: 'Matt', age: 21 },
-        { name: 'Jooje', age: 21}
-      ]
-    })
+  // switchNameHandler = (newName) => {
+  //   // console.log('Was clicked');
+  //   // DON'T DO THIS: this.state.persons[0].name = 'Maxamilian';
+  //   this.setState({
+  //     persons: [
+  //       { name: newName, age: 28 },
+  //       { name: 'Matt', age: 21 },
+  //       { name: 'Jooje', age: 21}
+  //     ]     
+  //   })
+  // }
+
+  nameChangeHandler = (event, id) => {
+    // Get the index of the person we want to change based on the id
+    const personIndex = this.state.persons.findIndex(p => {
+      return p.id === id;
+    });
+
+    // Make a copy of the person we want to edit from this.state.persons
+    const person = {
+      ...this.state.persons[personIndex]
+    };
+
+    // Edit the persons name with the passes in name from the event.
+    person.name = event.target.value;
+
+    // Make a copy of this.state.persons
+    const persons = [...this.state.persons];
+
+    // Update the copied state with the edited person data
+    persons[personIndex] = person;
+
+    this.setState({ persons: persons})
   }
 
-  nameChangeHandler = (event) => {
-    this.setState({
-      persons: [
-        { name: 'Max', age: 28 },
-        { name: event.target.value, age: 21 },
-        { name: 'Jooje', age: 21}
-      ]
-    })
+  deletePersonHandler = (personIndex) => {
+    // const persons = this.state.persons.slice();
+    const persons = [...this.state.persons]
+    persons.splice(personIndex, 1);
+    this.setState({persons: persons});
+  }
+
+  togglePersonsHandler = () => {
+    const doesShow = this.state.showPersons;
+    this.setState({showPersons: !doesShow})
   }
   // For Switch Name button we return an anonymous function that gives the name.
   // We should use this.function.bind() instead, like on the Person.click property
@@ -50,26 +76,40 @@ class App extends Component {
       padding: '8px',
       cursor: 'pointer'
     }
+
+    let persons = null;
+
+    if(this.state.showPersons) {
+      persons = (
+        <div>
+          {
+            this.state.persons.map((person, index) => {
+            return <Person
+              click = {() => this.deletePersonHandler(index)}
+              key = {person.id}              
+              name = {person.name}
+              age = { person.age}
+              changed = {(event) => this.nameChangeHandler(event, person.id)}
+              
+              // click={this.switchNameHandler.bind(this, 'Max! Max!')}
+              
+            />
+            })
+          }
+        </div>
+      );
+    }
+
     return (
       <div className="App">
         <h1>Hi I'm a React App</h1>
         <p>This is working!</p>
         <button
           style = {style} 
-          onClick = {() => this.switchNameHandler('Max Max')}>
-            Switch Name
+          onClick = {this.togglePersonsHandler}>
+            Toggle Person
           </button>
-        <Person 
-          name={this.state.persons[0].name} 
-          age={this.state.persons[0].age} />
-        <Person 
-          name={this.state.persons[1].name} 
-          age={this.state.persons[1].age}
-          click={this.switchNameHandler.bind(this, 'Max! Max!')}
-          changed={this.nameChangeHandler}>My Hobbies: Racing</Person>
-        <Person 
-          name={this.state.persons[2].name} 
-          age={this.state.persons[2].age} />
+          { persons }
       </div>
     );
     //return React.createElement('div',{className: 'App'},React.createElement('h1',null,'I\'m a React App!'));
