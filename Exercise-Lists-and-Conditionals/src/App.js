@@ -1,8 +1,57 @@
 import React, { Component } from 'react';
+import ValidationComponent from './ValidationComponent/ValidationComponent';
+import CharComponent from './CharComponent/CharComponent';
 import './App.css';
 
+
 class App extends Component {
+  state = {
+    textCount: 0,
+    characters: []
+  }
+
+  countTextHandler(event) {
+    let textCount = event.target.value.length;
+    // let lastChar = event.target.value.split('');
+    // console.log('lastChar: ',lastChar[lastChar.length-1])
+
+    const characters = event.target.value.split('');    
+
+    this.setState({
+      textCount: textCount,
+      characters: characters
+    })
+  }
+
+  removeCharHandler = (characterIndex) => {
+    // console.log(characterIndex);
+    const characters = [...this.state.characters];
+    characters.splice(characterIndex, 1);
+    let textCount = characters.length;
+    this.setState({
+      textCount: textCount,
+      characters: characters
+    })
+  }
+
   render() {
+
+    let characters = null;
+    if(this.state.characters) {
+      characters = (
+        <div>
+            {
+              this.state.characters.map((character,index) => {
+                return <CharComponent
+                  click = {() => this.removeCharHandler(index)}
+                  char = {character}
+                />
+              })
+            }
+        </div>
+      )
+    }
+
     return (
       <div className="App">
         <ol>
@@ -14,7 +63,24 @@ class App extends Component {
           <li>When you click a CharComponent, it should be removed from the entered text.</li>
         </ol>
         <p>Hint: Keep in mind that JavaScript strings are basically arrays!</p>
+
+        {characters}
+        <input 
+          type = "text"
+          onChange = {(event) => this.countTextHandler(event)}
+          value = {this.state.characters.join('')}
+        ></input>
+
+        <p>{this.state.textCount}</p>
+
+        <ValidationComponent 
+          textCount = {this.state.textCount}
+        />
+
       </div>
+
+
+
     );
   }
 }
