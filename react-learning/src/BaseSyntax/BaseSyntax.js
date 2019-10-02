@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import UserInput from './UserInput/UserInput';
 import UserOutput from './UserOutput/UserOutput';
+import './BaseSyntax.css';
 
 class BaseSyntax extends Component {
   state = {
@@ -56,20 +57,22 @@ class BaseSyntax extends Component {
           <li>Add two-way-binding to your input (in UserInput) to also display the starting username</li>
           <li>Add styling of your choice to your components/ elements in the components - both with inline styles and stylesheets</li>
         </ol>
-        <UserInput
-          username = {this.state.outputs[0].username}
-          changed = {this.usernameChangeHandler}
-        />
-        <UserOutput 
-          username = {this.state.outputs[0].username}
-          userOutputOne = {this.state.outputs[0].paragraphs[0].paragraph} 
-          userOutputTwo = {this.state.outputs[0].paragraphs[1].paragraph}
+        <div id='user-input-output'>
+          <UserInput
+            username = {this.state.outputs[0].username}
+            changed = {this.usernameChangeHandler}
           />
-        <UserOutput
-          username = {this.state.outputs[1].username} 
-          userOutputOne = {this.state.outputs[1].paragraphs[0].paragraph} 
-          userOutputTwo = {this.state.outputs[1].paragraphs[1].paragraph}
-          />
+          <UserOutput 
+            username = {this.state.outputs[0].username}
+            userOutputOne = {this.state.outputs[0].paragraphs[0].paragraph} 
+            userOutputTwo = {this.state.outputs[0].paragraphs[1].paragraph}
+            />
+          <UserOutput
+            username = {this.state.outputs[1].username} 
+            userOutputOne = {this.state.outputs[1].paragraphs[0].paragraph} 
+            userOutputTwo = {this.state.outputs[1].paragraphs[1].paragraph}
+            />
+          </div>
       </div>
     );
   }

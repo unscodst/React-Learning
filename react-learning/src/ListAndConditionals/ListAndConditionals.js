@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ValidationComponent from './ValidationComponent/ValidationComponent';
 import CharComponent from './CharComponent/CharComponent';
+import './ListAndConditionals.css';
 
 
 class ListAndConditionals extends Component {
@@ -52,7 +53,7 @@ class ListAndConditionals extends Component {
     }
 
     return (
-      <div className="App">
+      <div className="ListAndConditionals">
         <ol>
           <li>Create an input field (in App component) with a change listener which outputs the length of the entered text below it (e.g. in a paragraph).</li>
           <li>Create a new component (=> ValidationComponent) which receives the text length as a prop</li>
@@ -61,21 +62,22 @@ class ListAndConditionals extends Component {
           <li>Render a list of CharComponents where each CharComponent receives a different letter of the entered text (in the initial input field) as a prop.</li>
           <li>When you click a CharComponent, it should be removed from the entered text.</li>
         </ol>
-        <p>Hint: Keep in mind that JavaScript strings are basically arrays!</p>
+        <div id="character-input">
+          <p>Hint: Keep in mind that JavaScript strings are basically arrays!</p>
 
-        {characters}
-        <input 
-          type = "text"
-          onChange = {(event) => this.countTextHandler(event)}
-          value = {this.state.characters.join('')}
-        ></input>
+          {characters}
+          <input 
+            type = "text"
+            onChange = {(event) => this.countTextHandler(event)}
+            value = {this.state.characters.join('')}
+          ></input>
 
-        <p>{this.state.textCount}</p>
+          <p>{this.state.textCount}</p>
 
-        <ValidationComponent 
-          textCount = {this.state.textCount}
-        />
-
+          <ValidationComponent 
+            textCount = {this.state.textCount}
+          />
+        </div>
       </div>
 
 
