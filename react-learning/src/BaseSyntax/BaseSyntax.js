@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import UserInput from './UserInput/UserInput';
 import UserOutput from './UserOutput/UserOutput';
-import './BaseSyntax.css';
+import classes from './BaseSyntax.css';
 
 class BaseSyntax extends Component {
   state = {
@@ -44,7 +44,7 @@ class BaseSyntax extends Component {
   }
   render() {
     return (
-      <div className="BaseSyntax">
+      <div className={classes.BaseSyntax}>
         <ol>
           <li>Create TWO new components: UserInput and UserOutput</li>
           <li>UserInput should hold an input element, UserOutput two paragraphs</li>
@@ -57,7 +57,7 @@ class BaseSyntax extends Component {
           <li>Add two-way-binding to your input (in UserInput) to also display the starting username</li>
           <li>Add styling of your choice to your components/ elements in the components - both with inline styles and stylesheets</li>
         </ol>
-        <div id='user-input-output'>
+        <div id={classes.user_input_output}>
           <UserInput
             username = {this.state.outputs[0].username}
             changed = {this.usernameChangeHandler}
