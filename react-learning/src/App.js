@@ -71,20 +71,21 @@ class App extends Component {
   render() {
 
     // Inline CSS styles
-    const style = {
-      backgroundColor: 'green',
-      color: 'white',
-      font: 'inherit',
-      border: '1px solid blue',
-      padding: '8px',
-      cursor: 'pointer',
-      // ':hover': {
-      //   backgroundColor: 'lightgreen',
-      //   color: 'black'
-      // }
-    }
+    // const style = {
+    //   backgroundColor: 'green',
+    //   color: 'white',
+    //   font: 'inherit',
+    //   border: '1px solid blue',
+    //   padding: '8px',
+    //   cursor: 'pointer',
+    //   // ':hover': {
+    //   //   backgroundColor: 'lightgreen',
+    //   //   color: 'black'
+    //   // }
+    // }
 
     let persons = null;
+    let btnClass = '';
 
     if(this.state.showPersons) {
       persons = (
@@ -105,7 +106,8 @@ class App extends Component {
           }
         </div>
       );
-      style.backgroundColor = 'red';
+      btnClass = classes.red;
+      // style.backgroundColor = 'red';
       // style[':hover'] = {
       //   backgroundColor: 'salmon',
       //   color: 'black'
@@ -118,11 +120,11 @@ class App extends Component {
 
 
     return (
-        <div className={classes.App}>
+        <div className = {classes.App}>
           <h1>Hi I'm a React App</h1>
-          <p className={assignedClasses.join(' ')}>This is working!</p>
+          <p className = {assignedClasses.join(' ')}>This is working!</p>
           <button
-            style = {style} 
+          className = {btnClass}
             onClick = {this.togglePersonsHandler}>
               Toggle Person
             </button>
