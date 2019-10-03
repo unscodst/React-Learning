@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/unscodst/React-Learning/issues"
   },
-  "homepage": "https://github.com/unscodst/React-Learning#readme"
+  "homepage": "https://github.com/unscodst/React-Learning#readme",
+  "dependencies": {
+    "radium": "^0.26.0"
+  }
 }
